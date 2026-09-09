@@ -778,7 +778,6 @@ header nav a.site-logo img {
 
 }
 
-}
 /* ========================================
    CASE STUDIES
 ======================================== */
@@ -904,4 +903,70 @@ header nav a.site-logo img {
         height: 200px;
     }
 
+}
+/* ========================================
+DESIGNER STATEMENT
+======================================== */
+
+.designer-statement,
+.elevator-pitch,
+.designer-cta {
+max-width: 900px;
+margin: auto;
+padding: 4rem 2rem;
+}
+
+.designer-statement h2,
+.elevator-pitch h2,
+.designer-cta h2 {
+color: #8b5cf6;
+margin-bottom: 20px;
+text-align: center;
+}
+
+.designer-statement p,
+.elevator-pitch p {
+color: #c5bfd6;
+line-height: 1.8;
+margin-bottom: 20px;
+}
+
+.elevator-pitch {
+background: #181320;
+border-radius: 15px;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+
+.designer-cta {
+text-align: center;
+}
+
+.designer-cta p {
+color: #c5bfd6;
+margin-bottom: 25px;
+}
+
+.designer-cta .primary-btn {
+display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .designer-statement,
+
+.elevator-pitch,
+
+.designer-cta {
+
+    padding: 3rem 1.25rem;
+
+}
+
+.elevator-pitch {
+
+    margin-left: 1.25rem;
+
+    margin-right: 1.25rem;
+
+}
 }
