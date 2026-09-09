@@ -779,3 +779,97 @@ header nav a.site-logo img {
 }
 
 }
+/* ========================================
+   CASE STUDIES
+======================================== */
+
+.case-studies {
+    max-width: 1200px;
+    margin: auto;
+    padding: 6rem 2rem;
+}
+
+.case-studies > h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 2.5rem;
+}
+
+.case-studies-intro {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 50px;
+    color: #c5bfd6;
+}
+
+.case-studies-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.case-study-card {
+    background: #181320;
+    border: 1px solid #352044;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.case-study-card:hover {
+    transform: translateY(-6px);
+    border-color: #8b5cf6;
+}
+
+.case-study-preview {
+    height: 230px;
+    background: #24152f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.case-study-moon {
+    font-size: 7rem;
+    color: #cdb8ff;
+    line-height: 1;
+}
+
+.case-study-content {
+    padding: 25px;
+}
+
+.case-study-content h3 {
+    color: #f8f5ff;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.case-study-content p {
+    color: #c5bfd6;
+    margin-bottom: 25px;
+    line-height: 1.7;
+}
+
+.case-study-content .primary-btn {
+    display: inline-block;
+}
+
+
+/* Mobile Case Studies */
+
+@media (max-width: 768px) {
+
+    .case-studies {
+        padding: 4rem 1.25rem;
+    }
+
+    .case-studies-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .case-study-preview {
+        height: 200px;
+    }
+
+}
