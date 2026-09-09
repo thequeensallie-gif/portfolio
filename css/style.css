@@ -750,9 +750,9 @@ a:hover {
 
     display: block;
 
-    width: 130px;
+    width: 50px !important;
 
-    height: auto;
+    height: auto !important;
 
 }
 
