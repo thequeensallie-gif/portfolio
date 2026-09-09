@@ -749,11 +749,9 @@ a:hover {
 
     display: block;
 
-    width: 300px;
+    width: 150px;
 
-    height: 200px;
-
-    object-fit: contain;
+    height: auto;
 
 }
 /* Mobile logo */
