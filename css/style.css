@@ -729,4 +729,40 @@ a:hover {
         text-align: center;
         padding: 0.75rem 0;
     }
+/* ========================================
+
+   SITE LOGO
+
+======================================== */
+
+.site-logo {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-shrink: 0;
+
+}
+
+.site-logo img {
+
+    display: block;
+
+    width: 150px;
+
+    height: auto;
+
+}
+
+/* Mobile logo */
+
+@media (max-width: 768px) {
+
+    .site-logo img {
+
+        width: 120px;
+
+    }
+
 }
