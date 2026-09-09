@@ -852,9 +852,41 @@ header nav a.site-logo img {
 }
 
 .case-study-content .primary-btn {
+
     display: inline-block;
+
+    margin-top: 10px;
+
+    position: relative;
+
+    line-height: 1.4;
+
+}
+.case-study-content {
+
+    padding: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
 }
 
+.case-study-content p {
+
+    color: #c5bfd6;
+
+    margin-bottom: 20px;
+
+    line-height: 1.7;
+
+}
+
+.case-study-content .primary-btn {
+
+    align-self: flex-start;
+
+}
 
 /* Mobile Case Studies */
 
