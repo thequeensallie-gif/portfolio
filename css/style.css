@@ -939,40 +939,31 @@ margin-bottom: 20px;
 }
 
 .designer-cta {
+max-width: 900px;
+margin: auto;
+padding: 4rem 2rem 6rem;
 text-align: center;
+}
+
+.designer-cta h2 {
+color: #8b5cf6;
+margin-bottom: 15px;
 }
 
 .designer-cta p {
 color: #c5bfd6;
-margin-bottom: 25px;
+margin-bottom: 30px;
 }
 
 .designer-cta .primary-btn {
-
-    position: static;
-
-    display: inline-block;
-
-    margin-top: 10px;
-
+display: inline-block;
+position: static;
+margin-top: 0;
 }
 
 @media (max-width: 768px) {
-    .designer-statement,
+    .designer-cta {
 
-.elevator-pitch,
-
-.designer-cta {
-
-    padding: 3rem 1.25rem;
-
-}
-
-.elevator-pitch {
-
-    margin-left: 1.25rem;
-
-    margin-right: 1.25rem;
-
+    padding: 3rem 1.25rem 5rem;
 }
 }
