@@ -39,48 +39,68 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
     }
 });
 
-// The sky animation is opt-in. Reduced-motion preferences keep it paused.
+// Site-wide sky animation is opt-in, remembers the choice in this tab, and respects reduced motion.
 const hero = document.querySelector(".signature-hero");
 const skyMotionToggle = document.querySelector("#sky-motion-toggle");
 const skyMotionStatus = document.querySelector("#sky-motion-status");
+const motionStorageKey = "hope-celestial-motion";
+let savedMotion = false;
 
-if (hero && skyMotionToggle) {
+try {
+    savedMotion = sessionStorage.getItem(motionStorageKey) === "on";
+} catch (error) {
+    savedMotion = false;
+}
+
+if (skyMotionToggle && skyMotionStatus) {
     if (reducedMotion) {
         skyMotionStatus.textContent = "Animation is paused because reduced motion is enabled on your device.";
     } else {
         skyMotionToggle.disabled = false;
 
+        const applyMotionState = (isPlaying) => {
+            document.body.classList.toggle("site-motion-active", isPlaying);
+            if (hero) hero.classList.toggle("sky-motion-active", isPlaying);
+            skyMotionToggle.setAttribute("aria-pressed", String(isPlaying));
+            skyMotionToggle.querySelector(".sky-toggle-label").textContent = isPlaying ? "Pause sky" : "Play sky";
+            skyMotionStatus.textContent = isPlaying
+                ? "Sky animation is playing across the site. Move your pointer to guide the moonlight."
+                : "Sky animation is paused.";
+            try {
+                sessionStorage.setItem(motionStorageKey, isPlaying ? "on" : "off");
+            } catch (error) {
+                // The button still works for this page when session storage is unavailable.
+            }
+        };
+
+        applyMotionState(savedMotion);
         skyMotionToggle.addEventListener("click", () => {
             const isPlaying = skyMotionToggle.getAttribute("aria-pressed") === "true";
-            const shouldPlay = !isPlaying;
-            skyMotionToggle.setAttribute("aria-pressed", String(shouldPlay));
-            skyMotionToggle.textContent = shouldPlay ? "✦ Pause moon & stars" : "✦ Play moon & stars";
-            hero.classList.toggle("sky-motion-active", shouldPlay);
-            skyMotionStatus.textContent = shouldPlay
-                ? "Sky animation is playing. Move your pointer through the sky to guide the moonlight."
-                : "Sky animation is paused.";
+            applyMotionState(!isPlaying);
         });
 
-        hero.addEventListener("pointermove", (event) => {
-            if (!hero.classList.contains("sky-motion-active")) return;
-            const bounds = hero.getBoundingClientRect();
-            const x = Math.max(0, Math.min(100, ((event.clientX - bounds.left) / bounds.width) * 100));
-            const y = Math.max(0, Math.min(100, ((event.clientY - bounds.top) / bounds.height) * 100));
-            hero.style.setProperty("--light-x", `${x}%`);
-            hero.style.setProperty("--light-y", `${y}%`);
-            hero.style.setProperty("--star-x", `${(50 - x) * 0.06}px`);
-            hero.style.setProperty("--star-y", `${(50 - y) * 0.06}px`);
-            hero.style.setProperty("--moon-x", `${(50 - x) * 0.1}px`);
-            hero.style.setProperty("--moon-y", `${(50 - y) * 0.1}px`);
-        });
+        document.addEventListener("pointermove", (event) => {
+            if (!document.body.classList.contains("site-motion-active")) return;
+            const x = Math.max(0, Math.min(100, (event.clientX / window.innerWidth) * 100));
+            const y = Math.max(0, Math.min(100, (event.clientY / window.innerHeight) * 100));
+            document.body.style.setProperty("--site-light-x", `${x}%`);
+            document.body.style.setProperty("--site-light-y", `${y}%`);
+            document.body.style.setProperty("--site-star-x", `${(50 - x) * 0.06}px`);
+            document.body.style.setProperty("--site-star-y", `${(50 - y) * 0.06}px`);
+            document.body.style.setProperty("--site-moon-x", `${(50 - x) * 0.1}px`);
+            document.body.style.setProperty("--site-moon-y", `${(50 - y) * 0.1}px`);
 
-        hero.addEventListener("pointerleave", () => {
-            hero.style.setProperty("--light-x", "72%");
-            hero.style.setProperty("--light-y", "38%");
-            hero.style.setProperty("--star-x", "0px");
-            hero.style.setProperty("--star-y", "0px");
-            hero.style.setProperty("--moon-x", "0px");
-            hero.style.setProperty("--moon-y", "0px");
+            if (hero) {
+                const bounds = hero.getBoundingClientRect();
+                const heroX = Math.max(0, Math.min(100, ((event.clientX - bounds.left) / bounds.width) * 100));
+                const heroY = Math.max(0, Math.min(100, ((event.clientY - bounds.top) / bounds.height) * 100));
+                hero.style.setProperty("--light-x", `${heroX}%`);
+                hero.style.setProperty("--light-y", `${heroY}%`);
+                hero.style.setProperty("--star-x", `${(50 - heroX) * 0.06}px`);
+                hero.style.setProperty("--star-y", `${(50 - heroY) * 0.06}px`);
+                hero.style.setProperty("--moon-x", `${(50 - heroX) * 0.1}px`);
+                hero.style.setProperty("--moon-y", `${(50 - heroY) * 0.1}px`);
+            }
         });
     }
 }
