@@ -2583,3 +2583,175 @@ footer {
         max-width: 19rem;
     }
 }
+
+
+/* Site-wide celestial backdrop. The moving layers stay paused until opted in. */
+body {
+    position: relative;
+    isolation: isolate;
+}
+
+.site-sky {
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at 50% 110%, rgba(82, 53, 120, 0.16), transparent 60%),
+        linear-gradient(145deg, rgba(16, 12, 23, 0.98), rgba(20, 14, 29, 0.98));
+}
+
+.site-sky-stars {
+    position: absolute;
+    inset: -8px;
+    opacity: 0.48;
+    background:
+        radial-gradient(1.5px 1.5px at 8% 18%, rgba(242, 231, 255, 0.84) 99%, transparent 100%),
+        radial-gradient(1px 1px at 17% 72%, rgba(210, 190, 255, 0.78) 99%, transparent 100%),
+        radial-gradient(2px 2px at 28% 32%, rgba(238, 224, 255, 0.76) 99%, transparent 100%),
+        radial-gradient(1px 1px at 42% 14%, rgba(221, 203, 255, 0.7) 99%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 56% 77%, rgba(242, 231, 255, 0.74) 99%, transparent 100%),
+        radial-gradient(1px 1px at 68% 24%, rgba(218, 197, 255, 0.76) 99%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 81% 58%, rgba(242, 231, 255, 0.74) 99%, transparent 100%),
+        radial-gradient(1px 1px at 92% 16%, rgba(211, 188, 255, 0.8) 99%, transparent 100%),
+        radial-gradient(1px 1px at 94% 84%, rgba(238, 224, 255, 0.72) 99%, transparent 100%);
+    transform: translate3d(var(--site-star-x, 0px), var(--site-star-y, 0px), 0);
+}
+
+.site-sky-moon {
+    position: absolute;
+    top: 9vh;
+    right: 8vw;
+    color: rgba(206, 184, 245, 0.17);
+    font-size: clamp(8rem, 19vw, 16rem);
+    line-height: 1;
+    text-shadow: 0 0 60px rgba(153, 111, 225, 0.14);
+    translate: var(--site-moon-x, 0px) var(--site-moon-y, 0px);
+}
+
+.site-sky-light {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: radial-gradient(
+        circle 23rem at var(--site-light-x, 50%) var(--site-light-y, 35%),
+        rgba(201, 172, 255, 0.16),
+        rgba(160, 117, 231, 0.08) 40%,
+        transparent 100%
+    );
+}
+
+.site-sky-shooting {
+    position: absolute;
+    top: 18%;
+    left: 16%;
+    width: 150px;
+    height: 2px;
+    opacity: 0;
+    transform: rotate(28deg);
+    transform-origin: left center;
+    background: linear-gradient(90deg, rgba(231, 215, 255, 0.9), rgba(192, 157, 255, 0.42) 38%, transparent);
+    filter: drop-shadow(0 0 5px rgba(198, 165, 255, 0.72));
+}
+
+.site-sky-shooting-two {
+    top: 55%;
+    left: 68%;
+    width: 115px;
+}
+
+body.site-motion-active .site-sky-stars {
+    animation: star-field-drift 24s ease-in-out infinite alternate;
+    opacity: 0.75;
+}
+
+body.site-motion-active .site-sky-moon {
+    animation: moon-drift 12s ease-in-out infinite;
+}
+
+body.site-motion-active .site-sky-light {
+    opacity: 1;
+}
+
+body.site-motion-active .site-sky-shooting-one {
+    animation: shooting-star 13s ease-out infinite;
+    animation-delay: 1.4s;
+}
+
+body.site-motion-active .site-sky-shooting-two {
+    animation: shooting-star 17s ease-out infinite;
+    animation-delay: 7s;
+}
+
+.sky-motion-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.42rem;
+    min-height: 44px;
+    padding: 0.48rem 0.85rem;
+    color: #f1e9ff;
+    background: rgba(49, 35, 68, 0.95);
+    border: 1px solid rgba(205, 183, 255, 0.42);
+    border-radius: 999px;
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 650;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.sky-motion-toggle span:first-child {
+    color: #dcc8ff;
+}
+
+.sky-motion-toggle:hover:not(:disabled) {
+    background: #493260;
+}
+
+.sky-motion-toggle:disabled {
+    color: #c6bdcf;
+    background: rgba(29, 21, 42, 0.85);
+    border-color: rgba(205, 183, 255, 0.22);
+    cursor: not-allowed;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+@media (max-width: 768px) {
+    .sky-motion-toggle {
+        min-height: 42px;
+        padding: 0.4rem 0.68rem;
+        font-size: 0.7rem;
+    }
+
+    .site-sky-moon {
+        top: 11vh;
+        right: 2vw;
+        font-size: 8rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.site-motion-active .site-sky-stars,
+    body.site-motion-active .site-sky-moon,
+    body.site-motion-active .site-sky-shooting-one,
+    body.site-motion-active .site-sky-shooting-two {
+        animation: none !important;
+    }
+
+    body.site-motion-active .site-sky-light {
+        opacity: 0;
+    }
+}
