@@ -26,3 +26,28 @@
 .vv-campaign-grid{display:grid;grid-template-columns:1.05fr .75fr;gap:1rem}.vv-campaign-banner,.vv-campaign-poster,.vv-campaign-note{position:relative;display:flex;min-height:300px;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:2rem;text-align:center;border-radius:18px}.vv-campaign-banner{color:#fff;background:linear-gradient(120deg,#301541,#665083 55%,#74cbd7)}.vv-campaign-banner>p{margin:0 0 .5rem;color:#f1e8ff;font:700 .72rem Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase}.vv-campaign-banner h3{margin:0 0 1.2rem;color:#fff;font:500 clamp(2rem,4vw,3.4rem)/1 Georgia,'Times New Roman',serif}.vv-campaign-button{padding:.65rem 1rem;color:#2b183a;background:#f4e59b;border-radius:999px;font:700 .76rem Arial,sans-serif}.vv-campaign-star{position:absolute;color:#fff0a8}.vv-star-a{top:18%;left:12%;font-size:1.5rem}.vv-star-b{right:13%;bottom:18%;font-size:1.9rem}.vv-campaign-poster{min-height:300px;color:#fff;background:radial-gradient(circle at 50% 35%,rgba(177,153,219,.55),transparent 42%),linear-gradient(160deg,#9eb7ce 0%,#615178 48%,#271339 100%)}.vv-poster-kicker{margin:0 0 1rem;color:#f7f2ff;font:700 .68rem Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}.vv-campaign-poster h3{margin:0;color:#fff;font:500 clamp(1.5rem,3vw,2.25rem)/1.08 Georgia,'Times New Roman',serif}.vv-campaign-poster>p:not(.vv-poster-kicker){margin:.6rem 0 1rem;color:#ece5f5;font:italic 1rem Georgia,serif}.vv-campaign-poster>span{color:#fff0a8;font-size:1.8rem}.vv-campaign-poster>span b{padding:0 .35rem;font-size:1.2rem}.vv-campaign-note{grid-column:1/-1;min-height:0;align-items:flex-start;padding:1.4rem 1.6rem;text-align:left;background:#fff;border:1px solid rgba(81,44,119,.14)}.vv-campaign-note .project-eyebrow{margin:0 0 .35rem}.vv-campaign-note h3{margin:0 0 .35rem;color:#321e4a;font:500 1.35rem Georgia,serif}.vv-campaign-note p:last-child{max-width:760px;margin:0;color:#51495e;font:.92rem/1.7 Arial,sans-serif}
 @media(max-width:850px){.vv-case-project .project-system-grid{grid-template-columns:1fr}}
 @media(max-width:620px){.vv-brand-lockup{min-height:190px}.vv-palette li{min-height:78px;padding:.3rem}.vv-palette li span{font-size:.59rem}.vv-palette li small{font-size:.52rem}.vv-type-system{grid-template-columns:1fr}.vv-type-system h3{grid-column:auto}.vv-campaign-grid{grid-template-columns:1fr}.vv-campaign-banner,.vv-campaign-poster{min-height:250px}.vv-campaign-note{grid-column:auto}.vv-case-project .project-hero-art{padding:.55rem}}
+
+.case-project header {
+    background: var(--case-surface);
+    border-bottom: 1px solid rgba(81, 44, 119, 0.16);
+    backdrop-filter: none;
+}
+
+.case-project .nav-links a {
+    color: var(--case-ink);
+}
+
+.case-project .nav-links a:hover,
+.case-project .nav-links a[aria-current="page"] {
+    color: var(--case-accent);
+    background: color-mix(in srgb, var(--case-accent) 9%, transparent);
+    border-radius: 6px;
+}
+
+@media(max-width:768px){
+    .case-project .nav-links {
+        background: var(--case-surface);
+        border-color: color-mix(in srgb, var(--case-accent) 20%, white);
+        box-shadow: 0 14px 30px rgba(25, 20, 40, 0.14);
+    }
+}

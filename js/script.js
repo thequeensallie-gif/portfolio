@@ -61,7 +61,14 @@ if (skyMotionToggle && skyMotionStatus) {
 
         const applyMotionState = (isPlaying) => {
             document.body.classList.toggle("site-motion-active", isPlaying);
-            if (hero) hero.classList.toggle("sky-motion-active", isPlaying);
+            if (hero) {
+                hero.classList.toggle("sky-motion-active", isPlaying);
+                if (isPlaying) {
+                    const bounds = hero.getBoundingClientRect();
+                    hero.style.setProperty("--light-px-x", `${bounds.width * 0.72}px`);
+                    hero.style.setProperty("--light-px-y", `${bounds.height * 0.38}px`);
+                }
+            }
             skyMotionToggle.setAttribute("aria-pressed", String(isPlaying));
             skyMotionToggle.querySelector(".sky-toggle-label").textContent = isPlaying ? "Pause sky" : "Play sky";
             skyMotionStatus.textContent = isPlaying
@@ -93,23 +100,26 @@ if (skyMotionToggle && skyMotionStatus) {
                 const { x: pointerX, y: pointerY } = latestPointer;
                 const x = Math.max(0, Math.min(100, (pointerX / window.innerWidth) * 100));
                 const y = Math.max(0, Math.min(100, (pointerY / window.innerHeight) * 100));
-                document.body.style.setProperty("--site-light-x", `${x}%`);
-                document.body.style.setProperty("--site-light-y", `${y}%`);
+                const bounds = hero ? hero.getBoundingClientRect() : null;
+                const heroX = bounds ? Math.max(0, Math.min(bounds.width, pointerX - bounds.left)) : 0;
+                const heroY = bounds ? Math.max(0, Math.min(bounds.height, pointerY - bounds.top)) : 0;
+                const heroXPercent = bounds ? (heroX / bounds.width) * 100 : 50;
+                const heroYPercent = bounds ? (heroY / bounds.height) * 100 : 50;
+
+                document.body.style.setProperty("--site-light-x", `${pointerX}px`);
+                document.body.style.setProperty("--site-light-y", `${pointerY}px`);
                 document.body.style.setProperty("--site-star-x", `${(50 - x) * 0.06}px`);
                 document.body.style.setProperty("--site-star-y", `${(50 - y) * 0.06}px`);
                 document.body.style.setProperty("--site-moon-x", `${(50 - x) * 0.1}px`);
                 document.body.style.setProperty("--site-moon-y", `${(50 - y) * 0.1}px`);
 
-                if (hero) {
-                    const bounds = hero.getBoundingClientRect();
-                    const heroX = Math.max(0, Math.min(100, ((pointerX - bounds.left) / bounds.width) * 100));
-                    const heroY = Math.max(0, Math.min(100, ((pointerY - bounds.top) / bounds.height) * 100));
-                    hero.style.setProperty("--light-x", `${heroX}%`);
-                    hero.style.setProperty("--light-y", `${heroY}%`);
-                    hero.style.setProperty("--star-x", `${(50 - heroX) * 0.06}px`);
-                    hero.style.setProperty("--star-y", `${(50 - heroY) * 0.06}px`);
-                    hero.style.setProperty("--moon-x", `${(50 - heroX) * 0.1}px`);
-                    hero.style.setProperty("--moon-y", `${(50 - heroY) * 0.1}px`);
+                if (hero && bounds) {
+                    hero.style.setProperty("--light-px-x", `${heroX}px`);
+                    hero.style.setProperty("--light-px-y", `${heroY}px`);
+                    hero.style.setProperty("--star-x", `${(50 - heroXPercent) * 0.06}px`);
+                    hero.style.setProperty("--star-y", `${(50 - heroYPercent) * 0.06}px`);
+                    hero.style.setProperty("--moon-x", `${(50 - heroXPercent) * 0.1}px`);
+                    hero.style.setProperty("--moon-y", `${(50 - heroYPercent) * 0.1}px`);
                 }
             });
         });

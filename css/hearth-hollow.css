@@ -17,6 +17,38 @@
     background: var(--hh-linen);
 }
 
+.hh-page header {
+    background: rgba(245, 241, 232, 0.98);
+    border-bottom: 1px solid rgba(63, 90, 71, 0.18);
+    backdrop-filter: none;
+}
+
+.hh-page .nav-links a {
+    color: #30271f;
+}
+
+.hh-page .nav-links a:hover,
+.hh-page .nav-links a[aria-current="page"] {
+    color: #314a38;
+    background: rgba(63, 90, 71, 0.1);
+    border-radius: 6px;
+}
+
+.hh-page .sky-motion-toggle,
+.hh-page .menu-toggle {
+    color: #314a38;
+    background: #f5f1e8;
+    border-color: rgba(63, 90, 71, 0.42);
+}
+
+@media (max-width: 768px) {
+    .hh-page .nav-links {
+        background: #f5f1e8;
+        border-color: rgba(63, 90, 71, 0.2);
+        box-shadow: 0 14px 30px rgba(35, 45, 34, 0.16);
+    }
+}
+
 .hh-breadcrumbs,
 .hh-hero,
 .hh-section,
