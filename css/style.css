@@ -2175,3 +2175,72 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* Shared celestial details keep the supporting pages in the same visual world. */
+.about-hero,
+#resume-hero,
+.contact-hero,
+.thank-you {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+        radial-gradient(ellipse at 84% 24%, rgba(131, 86, 193, 0.17), transparent 34%),
+        radial-gradient(ellipse at 10% 100%, rgba(81, 52, 125, 0.15), transparent 42%);
+}
+
+.about-hero::after,
+#resume-hero::after,
+.contact-hero::after,
+.thank-you::after {
+    content: "☾";
+    position: absolute;
+    z-index: -1;
+    top: -1.5rem;
+    right: clamp(1.5rem, 10vw, 9rem);
+    color: rgba(208, 185, 255, 0.14);
+    font-size: clamp(6rem, 15vw, 11rem);
+    line-height: 1;
+    pointer-events: none;
+}
+
+.about-hero::before,
+#resume-hero::before,
+.contact-hero::before,
+.thank-you::before {
+    content: "✦   ·   ✧";
+    position: absolute;
+    top: 20%;
+    right: clamp(7rem, 21vw, 19rem);
+    color: rgba(222, 205, 255, 0.38);
+    font-size: 0.9rem;
+    letter-spacing: 1.7rem;
+    pointer-events: none;
+}
+
+.about-hero h2,
+#resume-hero h2,
+.contact-hero h2,
+.thank-you h2 {
+    position: relative;
+    z-index: 1;
+    color: var(--text);
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    letter-spacing: -0.05em;
+}
+
+.about-hero .section-label {
+    position: relative;
+    z-index: 1;
+}
+
+.contact-hero > p:not(.section-label) {
+    position: relative;
+    z-index: 1;
+}
+
+.contact-hero .section-label,
+.project-cta .section-label {
+    color: #c6a9ff;
+}
