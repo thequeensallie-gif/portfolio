@@ -39,8 +39,8 @@
 
 .case-project .nav-links a:hover,
 .case-project .nav-links a[aria-current="page"] {
-    color: var(--case-accent);
-    background: color-mix(in srgb, var(--case-accent) 9%, transparent);
+    color: var(--case-deep) !important;
+    background: color-mix(in srgb, var(--case-accent) 15%, var(--case-surface));
     border-radius: 6px;
 }
 
