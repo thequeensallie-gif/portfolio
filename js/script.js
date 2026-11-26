@@ -39,30 +39,45 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
     }
 });
 
-// Optional cursor light is available only for fine pointers when reduced motion is off.
+// The moving sky is opt-in, available for fine pointers, and off for reduced-motion users.
 const hero = document.querySelector(".signature-hero");
 const cursorLightToggle = document.querySelector("#cursor-light-toggle");
 if (hero && cursorLightToggle && !reducedMotion && window.matchMedia("(pointer: fine)").matches) {
     cursorLightToggle.closest("label").hidden = false;
-    cursorLightToggle.checked = true;
-    hero.classList.add("cursor-light-active");
 
-    const moveMoonlight = (event) => {
+    const moveSky = (event) => {
         if (!cursorLightToggle.checked) return;
         const bounds = hero.getBoundingClientRect();
-        const x = ((event.clientX - bounds.left) / bounds.width) * 100;
-        const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+        const x = Math.max(0, Math.min(100, ((event.clientX - bounds.left) / bounds.width) * 100));
+        const y = Math.max(0, Math.min(100, ((event.clientY - bounds.top) / bounds.height) * 100));
         hero.style.setProperty("--light-x", `${x}%`);
         hero.style.setProperty("--light-y", `${y}%`);
+        hero.style.setProperty("--star-x", `${(50 - x) * 0.06}px`);
+        hero.style.setProperty("--star-y", `${(50 - y) * 0.06}px`);
+        hero.style.setProperty("--moon-x", `${(50 - x) * 0.1}px`);
+        hero.style.setProperty("--moon-y", `${(50 - y) * 0.1}px`);
     };
 
-    hero.addEventListener("pointermove", moveMoonlight);
+    cursorLightToggle.addEventListener("change", () => {
+        hero.classList.toggle("sky-motion-active", cursorLightToggle.checked);
+        if (!cursorLightToggle.checked) {
+            hero.style.setProperty("--light-x", "72%");
+            hero.style.setProperty("--light-y", "38%");
+            hero.style.setProperty("--star-x", "0px");
+            hero.style.setProperty("--star-y", "0px");
+            hero.style.setProperty("--moon-x", "0px");
+            hero.style.setProperty("--moon-y", "0px");
+        }
+    });
+
+    hero.addEventListener("pointermove", moveSky);
     hero.addEventListener("pointerleave", () => {
         hero.style.setProperty("--light-x", "72%");
         hero.style.setProperty("--light-y", "38%");
-    });
-    cursorLightToggle.addEventListener("change", () => {
-        hero.classList.toggle("cursor-light-active", cursorLightToggle.checked);
+        hero.style.setProperty("--star-x", "0px");
+        hero.style.setProperty("--star-y", "0px");
+        hero.style.setProperty("--moon-x", "0px");
+        hero.style.setProperty("--moon-y", "0px");
     });
 }
 
