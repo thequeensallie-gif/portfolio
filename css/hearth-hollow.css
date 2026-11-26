@@ -29,8 +29,8 @@
 
 .hh-page .nav-links a:hover,
 .hh-page .nav-links a[aria-current="page"] {
-    color: #314a38;
-    background: rgba(63, 90, 71, 0.1);
+    color: #243329 !important;
+    background: rgba(63, 90, 71, 0.16);
     border-radius: 6px;
 }
 
