@@ -38,6 +38,24 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
     }
 });
 
+// Let a soft moonlight glow follow a fine-pointer cursor across the hero.
+const hero = document.querySelector(".signature-hero");
+if (hero && !reducedMotion && window.matchMedia("(pointer: fine)").matches) {
+    const moveMoonlight = (event) => {
+        const bounds = hero.getBoundingClientRect();
+        const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+        const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+        hero.style.setProperty("--light-x", `${x}%`);
+        hero.style.setProperty("--light-y", `${y}%`);
+    };
+
+    hero.addEventListener("pointermove", moveMoonlight);
+    hero.addEventListener("pointerleave", () => {
+        hero.style.setProperty("--light-x", "72%");
+        hero.style.setProperty("--light-y", "38%");
+    });
+}
+
 // Gentle entrance motion. Content remains visible if motion is reduced or the API is unavailable.
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (!reducedMotion && "IntersectionObserver" in window) {
