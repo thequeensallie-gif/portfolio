@@ -44,6 +44,12 @@
     border-radius: 6px;
 }
 
+.case-project .project-breadcrumb a:hover {
+    color: var(--case-deep) !important;
+    background: color-mix(in srgb, var(--case-accent) 12%, var(--case-surface));
+    border-radius: 4px;
+}
+
 @media(max-width:768px){
     .case-project .nav-links {
         background: var(--case-surface);
