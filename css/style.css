@@ -2414,3 +2414,26 @@ footer {
         bottom: 1rem;
     }
 }
+
+
+/* ID-qualified override removes the former hero photograph at every viewport. */
+#hero.signature-hero {
+    min-height: min(820px, calc(100svh - 72px));
+    background-color: #120d1b;
+    background-image:
+        radial-gradient(ellipse at 50% 110%, rgba(102, 65, 148, 0.22), transparent 58%),
+        linear-gradient(120deg, #100b17 0%, #1a1028 58%, #171020 100%);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#hero.signature-hero::before {
+    background: linear-gradient(90deg, rgba(13, 9, 18, 0.42) 0%, rgba(13, 9, 18, 0.12) 60%, rgba(13, 9, 18, 0.2) 100%);
+}
+
+@media (max-width: 768px) {
+    #hero.signature-hero {
+        min-height: calc(100svh - 66px);
+        background-position: center;
+    }
+}
