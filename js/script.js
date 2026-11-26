@@ -80,28 +80,38 @@ if (skyMotionToggle && skyMotionStatus) {
             applyMotionState(!isPlaying);
         });
 
+        let pointerFrame = null;
+        let latestPointer = null;
         document.addEventListener("pointermove", (event) => {
             if (!document.body.classList.contains("site-motion-active")) return;
-            const x = Math.max(0, Math.min(100, (event.clientX / window.innerWidth) * 100));
-            const y = Math.max(0, Math.min(100, (event.clientY / window.innerHeight) * 100));
-            document.body.style.setProperty("--site-light-x", `${x}%`);
-            document.body.style.setProperty("--site-light-y", `${y}%`);
-            document.body.style.setProperty("--site-star-x", `${(50 - x) * 0.06}px`);
-            document.body.style.setProperty("--site-star-y", `${(50 - y) * 0.06}px`);
-            document.body.style.setProperty("--site-moon-x", `${(50 - x) * 0.1}px`);
-            document.body.style.setProperty("--site-moon-y", `${(50 - y) * 0.1}px`);
+            latestPointer = { x: event.clientX, y: event.clientY };
+            if (pointerFrame !== null) return;
 
-            if (hero) {
-                const bounds = hero.getBoundingClientRect();
-                const heroX = Math.max(0, Math.min(100, ((event.clientX - bounds.left) / bounds.width) * 100));
-                const heroY = Math.max(0, Math.min(100, ((event.clientY - bounds.top) / bounds.height) * 100));
-                hero.style.setProperty("--light-x", `${heroX}%`);
-                hero.style.setProperty("--light-y", `${heroY}%`);
-                hero.style.setProperty("--star-x", `${(50 - heroX) * 0.06}px`);
-                hero.style.setProperty("--star-y", `${(50 - heroY) * 0.06}px`);
-                hero.style.setProperty("--moon-x", `${(50 - heroX) * 0.1}px`);
-                hero.style.setProperty("--moon-y", `${(50 - heroY) * 0.1}px`);
-            }
+            pointerFrame = window.requestAnimationFrame(() => {
+                pointerFrame = null;
+                if (!latestPointer || !document.body.classList.contains("site-motion-active")) return;
+                const { x: pointerX, y: pointerY } = latestPointer;
+                const x = Math.max(0, Math.min(100, (pointerX / window.innerWidth) * 100));
+                const y = Math.max(0, Math.min(100, (pointerY / window.innerHeight) * 100));
+                document.body.style.setProperty("--site-light-x", `${x}%`);
+                document.body.style.setProperty("--site-light-y", `${y}%`);
+                document.body.style.setProperty("--site-star-x", `${(50 - x) * 0.06}px`);
+                document.body.style.setProperty("--site-star-y", `${(50 - y) * 0.06}px`);
+                document.body.style.setProperty("--site-moon-x", `${(50 - x) * 0.1}px`);
+                document.body.style.setProperty("--site-moon-y", `${(50 - y) * 0.1}px`);
+
+                if (hero) {
+                    const bounds = hero.getBoundingClientRect();
+                    const heroX = Math.max(0, Math.min(100, ((pointerX - bounds.left) / bounds.width) * 100));
+                    const heroY = Math.max(0, Math.min(100, ((pointerY - bounds.top) / bounds.height) * 100));
+                    hero.style.setProperty("--light-x", `${heroX}%`);
+                    hero.style.setProperty("--light-y", `${heroY}%`);
+                    hero.style.setProperty("--star-x", `${(50 - heroX) * 0.06}px`);
+                    hero.style.setProperty("--star-y", `${(50 - heroY) * 0.06}px`);
+                    hero.style.setProperty("--moon-x", `${(50 - heroX) * 0.1}px`);
+                    hero.style.setProperty("--moon-y", `${(50 - heroY) * 0.1}px`);
+                }
+            });
         });
     }
 }

@@ -1137,9 +1137,10 @@ header {
     top: 0;
     z-index: 1000;
     padding: 0.7rem clamp(1.1rem, 4vw, 3rem);
-    background: rgba(19, 15, 25, 0.92);
+    background: rgba(19, 15, 25, 0.98);
     border-bottom: 1px solid rgba(202, 177, 255, 0.12);
-    backdrop-filter: blur(16px);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 nav {
@@ -2034,6 +2035,14 @@ footer {
     object-position: center 26%;
 }
 
+.celestial-case-studies .case-study-index {
+    z-index: 3;
+    padding: 0.3rem 0.5rem;
+    color: #f1eaff;
+    background: rgba(16, 13, 20, 0.82);
+    border-radius: 999px;
+}
+
 .celestial-case-studies .case-study-preview::before,
 .celestial-case-studies .case-study-preview::after {
     position: absolute;
@@ -2549,8 +2558,8 @@ footer {
 }
 
 @keyframes star-field-drift {
-    from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
-    to { background-position: 0 0, 3px -5px, -4px 3px, 5px 2px, -2px -4px, 3px 5px, -5px -3px, 4px -2px, -3px 4px; }
+    from { opacity: 0.58; }
+    to { opacity: 0.82; }
 }
 
 @keyframes shooting-star {
