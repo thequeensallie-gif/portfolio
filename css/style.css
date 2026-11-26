@@ -2437,3 +2437,84 @@ footer {
         background-position: center;
     }
 }
+
+
+/* Opt-in animated night sky. It remains still until a visitor enables it. */
+.signature-hero::after {
+    inset: -8px;
+    transform: translate3d(var(--star-x, 0px), var(--star-y, 0px), 0);
+}
+
+.signature-hero.sky-motion-active::after {
+    animation: star-field-drift 24s ease-in-out infinite alternate;
+}
+
+.signature-hero.sky-motion-active .hero-star {
+    animation: star-glimmer 4.8s ease-in-out infinite !important;
+}
+
+.signature-hero.sky-motion-active .hero-star-two {
+    animation-delay: 1.3s !important;
+}
+
+.signature-hero.sky-motion-active .hero-moon {
+    animation: moon-drift 12s ease-in-out infinite !important;
+    translate: var(--moon-x, 0px) var(--moon-y, 0px);
+}
+
+.signature-hero.sky-motion-active .cursor-moonlight {
+    opacity: 1;
+}
+
+.shooting-star {
+    position: absolute;
+    z-index: 1;
+    top: 18%;
+    left: 44%;
+    width: clamp(90px, 13vw, 180px);
+    height: 2px;
+    opacity: 0;
+    pointer-events: none;
+    transform: rotate(28deg);
+    transform-origin: left center;
+    background: linear-gradient(90deg, rgba(231, 215, 255, 0.92), rgba(192, 157, 255, 0.46) 38%, transparent);
+    filter: drop-shadow(0 0 5px rgba(198, 165, 255, 0.8));
+}
+
+.signature-hero.sky-motion-active .shooting-star-one {
+    animation: shooting-star 12s ease-out infinite;
+    animation-delay: 2s;
+}
+
+.signature-hero.sky-motion-active .shooting-star-two {
+    top: 34%;
+    left: 73%;
+    width: 110px;
+    animation: shooting-star 15s ease-out infinite;
+    animation-delay: 8s;
+}
+
+@keyframes star-field-drift {
+    from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+    to { background-position: 0 0, 3px -5px, -4px 3px, 5px 2px, -2px -4px, 3px 5px, -5px -3px, 4px -2px, -3px 4px; }
+}
+
+@keyframes shooting-star {
+    0%, 9% { opacity: 0; transform: translate3d(0, 0, 0) rotate(28deg); }
+    12% { opacity: 0.92; }
+    26% { opacity: 0; transform: translate3d(250px, 118px, 0) rotate(28deg); }
+    100% { opacity: 0; transform: translate3d(250px, 118px, 0) rotate(28deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .signature-hero.sky-motion-active::after,
+    .signature-hero.sky-motion-active .hero-star,
+    .signature-hero.sky-motion-active .hero-moon,
+    .signature-hero.sky-motion-active .shooting-star {
+        animation: none !important;
+    }
+
+    .signature-hero.sky-motion-active .cursor-moonlight {
+        opacity: 0;
+    }
+}
