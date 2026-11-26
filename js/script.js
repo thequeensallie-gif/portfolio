@@ -39,46 +39,50 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
     }
 });
 
-// The moving sky is opt-in, available for fine pointers, and off for reduced-motion users.
+// The sky animation is opt-in. Reduced-motion preferences keep it paused.
 const hero = document.querySelector(".signature-hero");
-const cursorLightToggle = document.querySelector("#cursor-light-toggle");
-if (hero && cursorLightToggle && !reducedMotion && window.matchMedia("(pointer: fine)").matches) {
-    cursorLightToggle.closest("label").hidden = false;
+const skyMotionToggle = document.querySelector("#sky-motion-toggle");
+const skyMotionStatus = document.querySelector("#sky-motion-status");
 
-    const moveSky = (event) => {
-        if (!cursorLightToggle.checked) return;
-        const bounds = hero.getBoundingClientRect();
-        const x = Math.max(0, Math.min(100, ((event.clientX - bounds.left) / bounds.width) * 100));
-        const y = Math.max(0, Math.min(100, ((event.clientY - bounds.top) / bounds.height) * 100));
-        hero.style.setProperty("--light-x", `${x}%`);
-        hero.style.setProperty("--light-y", `${y}%`);
-        hero.style.setProperty("--star-x", `${(50 - x) * 0.06}px`);
-        hero.style.setProperty("--star-y", `${(50 - y) * 0.06}px`);
-        hero.style.setProperty("--moon-x", `${(50 - x) * 0.1}px`);
-        hero.style.setProperty("--moon-y", `${(50 - y) * 0.1}px`);
-    };
+if (hero && skyMotionToggle) {
+    if (reducedMotion) {
+        skyMotionStatus.textContent = "Animation is paused because reduced motion is enabled on your device.";
+    } else {
+        skyMotionToggle.disabled = false;
 
-    cursorLightToggle.addEventListener("change", () => {
-        hero.classList.toggle("sky-motion-active", cursorLightToggle.checked);
-        if (!cursorLightToggle.checked) {
+        skyMotionToggle.addEventListener("click", () => {
+            const isPlaying = skyMotionToggle.getAttribute("aria-pressed") === "true";
+            const shouldPlay = !isPlaying;
+            skyMotionToggle.setAttribute("aria-pressed", String(shouldPlay));
+            skyMotionToggle.textContent = shouldPlay ? "✦ Pause moon & stars" : "✦ Play moon & stars";
+            hero.classList.toggle("sky-motion-active", shouldPlay);
+            skyMotionStatus.textContent = shouldPlay
+                ? "Sky animation is playing. Move your pointer through the sky to guide the moonlight."
+                : "Sky animation is paused.";
+        });
+
+        hero.addEventListener("pointermove", (event) => {
+            if (!hero.classList.contains("sky-motion-active")) return;
+            const bounds = hero.getBoundingClientRect();
+            const x = Math.max(0, Math.min(100, ((event.clientX - bounds.left) / bounds.width) * 100));
+            const y = Math.max(0, Math.min(100, ((event.clientY - bounds.top) / bounds.height) * 100));
+            hero.style.setProperty("--light-x", `${x}%`);
+            hero.style.setProperty("--light-y", `${y}%`);
+            hero.style.setProperty("--star-x", `${(50 - x) * 0.06}px`);
+            hero.style.setProperty("--star-y", `${(50 - y) * 0.06}px`);
+            hero.style.setProperty("--moon-x", `${(50 - x) * 0.1}px`);
+            hero.style.setProperty("--moon-y", `${(50 - y) * 0.1}px`);
+        });
+
+        hero.addEventListener("pointerleave", () => {
             hero.style.setProperty("--light-x", "72%");
             hero.style.setProperty("--light-y", "38%");
             hero.style.setProperty("--star-x", "0px");
             hero.style.setProperty("--star-y", "0px");
             hero.style.setProperty("--moon-x", "0px");
             hero.style.setProperty("--moon-y", "0px");
-        }
-    });
-
-    hero.addEventListener("pointermove", moveSky);
-    hero.addEventListener("pointerleave", () => {
-        hero.style.setProperty("--light-x", "72%");
-        hero.style.setProperty("--light-y", "38%");
-        hero.style.setProperty("--star-x", "0px");
-        hero.style.setProperty("--star-y", "0px");
-        hero.style.setProperty("--moon-x", "0px");
-        hero.style.setProperty("--moon-y", "0px");
-    });
+        });
+    }
 }
 
 // Gentle entrance motion. Content remains visible if motion is reduced or the API is unavailable.
