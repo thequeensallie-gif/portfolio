@@ -43,13 +43,14 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
 const hero = document.querySelector(".signature-hero");
 const skyMotionToggle = document.querySelector("#sky-motion-toggle");
 const skyMotionStatus = document.querySelector("#sky-motion-status");
-const motionStorageKey = "hope-celestial-motion";
-let savedMotion = false;
+const motionStorageKey = "hope-celestial-motion-v2";
+let savedMotion = true;
 
 try {
-    savedMotion = sessionStorage.getItem(motionStorageKey) === "on";
+    const storedMotion = sessionStorage.getItem(motionStorageKey);
+    if (storedMotion !== null) savedMotion = storedMotion === "on";
 } catch (error) {
-    savedMotion = false;
+    savedMotion = true;
 }
 
 if (skyMotionToggle && skyMotionStatus) {
