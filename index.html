@@ -11,6 +11,13 @@
     <link rel="icon" type="image/png" href="/images/hope-scott-favicon.png">
 </head>
 <body>
+<div class="site-sky" aria-hidden="true">
+    <span class="site-sky-stars"></span>
+    <span class="site-sky-moon">☾</span>
+    <span class="site-sky-light"></span>
+    <span class="site-sky-shooting site-sky-shooting-one"></span>
+    <span class="site-sky-shooting site-sky-shooting-two"></span>
+</div>
 <header>
     <nav>
         <a href="/" class="site-logo" aria-label="Hope Scott home">
@@ -24,6 +31,8 @@
             <li><a href="/resume/">Resume</a></li>
             <li><a href="/contact/">Contact</a></li>
         </ul>
+        <button class="sky-motion-toggle" id="sky-motion-toggle" type="button" aria-pressed="false" aria-describedby="sky-motion-status" disabled><span aria-hidden="true">✦</span> <span class="sky-toggle-label">Play sky</span></button>
+        <span id="sky-motion-status" class="visually-hidden" role="status" aria-live="polite">Animation is paused.</span>
     </nav>
 </header>
 
@@ -46,7 +55,7 @@
                 <a href="/contact/" class="secondary-btn">Let's connect</a>
             </div>
         </div>
-        <div class="sky-motion-control"><button class="cursor-light-toggle" id="sky-motion-toggle" type="button" aria-pressed="false" aria-describedby="sky-motion-status" disabled><span aria-hidden="true">✦</span> Play moon &amp; stars</button><p class="sky-motion-status" id="sky-motion-status" role="status" aria-live="polite">Move your pointer through the sky to guide the moonlight.</p></div>
+        
         <p class="hero-note"><span aria-hidden="true">✧</span> Web · Brand · Visual design</p>
     </section>
 
