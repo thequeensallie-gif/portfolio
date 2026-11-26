@@ -2755,3 +2755,25 @@ body.site-motion-active .site-sky-shooting-two {
         opacity: 0;
     }
 }
+
+
+/* Final refinements: one shared moon, forward-moving shooting stars. */
+.about-hero::after,
+#resume-hero::after,
+.contact-hero::after,
+.thank-you::after {
+    content: none;
+}
+
+.shooting-star,
+.site-sky-shooting {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(192, 157, 255, 0.34) 56%,
+        rgba(231, 215, 255, 0.96) 100%
+    );
+}
+
+/* Motion starts automatically unless reduced motion is requested.
+   The always-visible navigation control can pause it at any time. */
