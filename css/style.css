@@ -2490,9 +2490,10 @@ footer {
     min-height: min(820px, calc(100svh - 72px));
     background-color: #120d1b;
     background-image:
+        linear-gradient(to bottom, transparent 68%, #130e1b 100%),
         radial-gradient(ellipse at 50% 110%, rgba(102, 65, 148, 0.22), transparent 58%),
         linear-gradient(120deg, #100b17 0%, #1a1028 58%, #171020 100%);
-    background-position: center;
+    background-position: center, center, center;
     background-repeat: no-repeat;
 }
 
