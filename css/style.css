@@ -124,7 +124,7 @@ nav a:hover {
 
     padding: 100px 30px;
 
-    background-image: url("../images/hopescottcreative_herodesktop.png");
+    background-image: url("https://hopescottcreative.is-not-a.dev/images/hopescottcreative_herodesktop.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -898,7 +898,7 @@ margin: 0 0 35px;
     /* Home Hero */
 
       #hero {
-        background-image: url("../images/hopescottcreative_heromobile.png");
+        background-image: url("https://hopescottcreative.is-not-a.dev/images/hopescottcreative_heromobile.png");
         background-position: center center;
         min-height: 100svh;
     }
@@ -1989,6 +1989,51 @@ footer {
         linear-gradient(145deg, #332340, #17131d 78%);
 }
 
+.celestial-case-studies .case-study-preview {
+    isolation: isolate;
+}
+
+.celestial-case-studies .case-study-preview::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(16, 13, 20, 0.02) 42%, rgba(16, 13, 20, 0.7) 100%);
+    pointer-events: none;
+}
+
+.celestial-case-studies .case-study-preview::after {
+    top: 0.9rem;
+    right: 1rem;
+    bottom: auto;
+    z-index: 2;
+    content: "✦   ·   ✧";
+}
+
+.case-study-thumb {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.case-study-thumb-hearth {
+    object-position: center 48%;
+}
+
+.case-study-thumb-visia {
+    object-fit: contain;
+    padding: 1rem;
+    background: linear-gradient(135deg, #ded8e8, #d8eff1);
+}
+
+.case-study-thumb-move {
+    object-position: center 26%;
+}
+
 .celestial-case-studies .case-study-preview::before,
 .celestial-case-studies .case-study-preview::after {
     position: absolute;
@@ -2049,6 +2094,15 @@ footer {
 
 .celestial-case-studies .case-study-content .text-link {
     margin-top: auto;
+}
+
+.celestial-case-studies .case-study-content .text-link:hover {
+    color: #c4a6f5;
+}
+
+.celestial-case-studies .case-study-card:hover {
+    border-color: #60447b;
+    transform: translateY(-4px);
 }
 
 .celestial-gallery {

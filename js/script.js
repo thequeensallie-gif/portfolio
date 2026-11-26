@@ -107,7 +107,8 @@ if (skyMotionToggle && skyMotionStatus) {
 }
 
 // Gentle entrance motion. Content remains visible if motion is reduced or the API is unavailable.
-if (!reducedMotion && "IntersectionObserver" in window) {
+const isHomePage = document.body.classList.contains("home-page");
+if (!reducedMotion && !isHomePage && "IntersectionObserver" in window) {
     const revealItems = document.querySelectorAll(
         "main section, body > section, .skill-card, .project-card, .case-study-card, .job, .gallery-grid img"
     );
