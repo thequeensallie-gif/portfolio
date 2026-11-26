@@ -30,7 +30,8 @@ if (menuToggle && navLinks) {
 }
 
 // Mark the current page in the navigation for sighted and assistive technology users.
-const currentPath = window.location.pathname.replace(/index\\.html$/, "");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const currentPath = window.location.pathname.replace(/index\.html$/, "");
 document.querySelectorAll(".nav-links a").forEach((link) => {
     const targetPath = new URL(link.href, window.location.origin).pathname;
     if (targetPath === currentPath || (currentPath === "/" && targetPath === "/")) {
@@ -66,7 +67,6 @@ if (hero && cursorLightToggle && !reducedMotion && window.matchMedia("(pointer: 
 }
 
 // Gentle entrance motion. Content remains visible if motion is reduced or the API is unavailable.
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (!reducedMotion && "IntersectionObserver" in window) {
     const revealItems = document.querySelectorAll(
         "main section, body > section, .skill-card, .project-card, .case-study-card, .job, .gallery-grid img"
