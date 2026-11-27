@@ -225,7 +225,7 @@ if (lightbox && lightboxImg && closeLightbox) {
             <span class="visually-hidden"> (Pixabay; opens in a new tab)</span>
         </a>
         <span class="site-music-status visually-hidden" role="status" aria-live="polite">Music is paused.</span>
-        <audio class="site-music-audio" src="/audio/amarantamusic-ocean-237911.mp3" preload="none" loop></audio>
+        <audio class="site-music-audio" src="/audio/amarantamusic-ocean-237911.mp3" preload="auto" loop></audio>
     `;
     document.body.append(player);
 
