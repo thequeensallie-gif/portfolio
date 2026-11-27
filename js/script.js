@@ -21,7 +21,10 @@ if (menuToggle && navLinks) {
     });
 
     document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") closeMenu();
+        if (event.key === "Escape" && menuToggle.getAttribute("aria-expanded") === "true") {
+            closeMenu();
+            menuToggle.focus();
+        }
     });
 
     document.addEventListener("click", (event) => {
@@ -39,7 +42,8 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
     }
 });
 
-// Site-wide sky animation is opt-in, remembers the choice in this tab, and respects reduced motion.
+// Site-wide sky animation starts automatically unless reduced motion is preferred.
+// The play/pause choice is remembered while visitors move between pages in this tab.
 const hero = document.querySelector(".signature-hero");
 const skyMotionToggle = document.querySelector("#sky-motion-toggle");
 const skyMotionStatus = document.querySelector("#sky-motion-status");
@@ -189,6 +193,160 @@ if (lightbox && lightboxImg && closeLightbox) {
         if (event.target === lightbox) closeViewer();
     });
     document.addEventListener("keydown", (event) => {
-        if (!lightbox.hidden && event.key === "Escape") closeViewer();
+        if (lightbox.hidden) return;
+        if (event.key === "Escape") {
+            closeViewer();
+        } else if (event.key === "Tab") {
+            // The close button is the only focusable control in this dialog.
+            event.preventDefault();
+            closeLightbox.focus();
+        }
     });
 }
+
+// Site-wide background music: visitors start it themselves; their choice and
+// listening position can continue while they move between portfolio pages.
+(() => {
+    const player = document.createElement("aside");
+    player.className = "site-music-player";
+    player.setAttribute("aria-label", "Portfolio background music");
+    player.innerHTML = `
+        <button class="site-music-toggle" type="button" aria-pressed="false" aria-label="Play background music">
+            <span class="site-music-icon" aria-hidden="true">♫</span>
+            <span class="site-music-toggle-label">Play music</span>
+        </button>
+        <label class="site-music-volume">
+            <span>Volume</span>
+            <input class="site-music-volume-input" type="range" min="0" max="100" step="1" value="45" aria-label="Background music volume" aria-valuetext="45 percent">
+            <output class="site-music-volume-value" aria-hidden="true">45%</output>
+        </label>
+        <a class="site-music-credit" href="https://pixabay.com/music/adventure-ocean-237911/" target="_blank" rel="noopener noreferrer">
+            Music: Ocean by AmarantaMusic <span aria-hidden="true">↗</span>
+            <span class="visually-hidden"> (Pixabay; opens in a new tab)</span>
+        </a>
+        <span class="site-music-status visually-hidden" role="status" aria-live="polite">Music is paused.</span>
+        <audio class="site-music-audio" src="/audio/amarantamusic-ocean-237911.mp3" preload="none" loop></audio>
+    `;
+    document.body.append(player);
+
+    const audio = player.querySelector(".site-music-audio");
+    const toggle = player.querySelector(".site-music-toggle");
+    const toggleLabel = player.querySelector(".site-music-toggle-label");
+    const volumeInput = player.querySelector(".site-music-volume-input");
+    const volumeValue = player.querySelector(".site-music-volume-value");
+    const status = player.querySelector(".site-music-status");
+    const playingKey = "hope-portfolio-music-playing-v1";
+    const timeKey = "hope-portfolio-music-time-v1";
+    const volumeKey = "hope-portfolio-music-volume-v1";
+    let shouldContinue = false;
+    let savedTime = 0;
+    let restorePosition = false;
+
+    try {
+        shouldContinue = sessionStorage.getItem(playingKey) === "on";
+        savedTime = Number(sessionStorage.getItem(timeKey)) || 0;
+        restorePosition = savedTime > 0;
+        const storedVolume = localStorage.getItem(volumeKey);
+        if (storedVolume !== null && Number.isFinite(Number(storedVolume))) {
+            volumeInput.value = String(Math.max(0, Math.min(100, Math.round(Number(storedVolume) * 100))));
+        }
+    } catch (error) {
+        // The player remains usable when browser storage is unavailable.
+    }
+
+    const applyVolume = () => {
+        const percent = Number(volumeInput.value);
+        audio.volume = percent / 100;
+        volumeValue.value = `${percent}%`;
+        volumeInput.setAttribute("aria-valuetext", `${percent} percent`);
+        try {
+            localStorage.setItem(volumeKey, String(audio.volume));
+        } catch (error) {
+            // Volume still changes for the current page.
+        }
+    };
+
+    const setPlaying = (isPlaying, message) => {
+        toggle.setAttribute("aria-pressed", String(isPlaying));
+        toggle.setAttribute("aria-label", isPlaying ? "Pause background music" : "Play background music");
+        toggleLabel.textContent = isPlaying ? "Pause music" : "Play music";
+        status.textContent = message || (isPlaying ? "Background music is playing." : "Music is paused.");
+        try {
+            sessionStorage.setItem(playingKey, isPlaying ? "on" : "off");
+        } catch (error) {
+            // The control still works for the current page.
+        }
+    };
+
+    applyVolume();
+    volumeInput.addEventListener("input", applyVolume);
+
+    const restorePlayback = async () => {
+        if (restorePosition && Number.isFinite(audio.duration) && audio.duration > 0) {
+            try {
+                audio.currentTime = savedTime % audio.duration;
+                // Wait for the seek to finish before restarting, so playback
+                // cannot briefly begin at the start of the track.
+                await new Promise((resolve) => {
+                    if (!audio.seeking) return resolve();
+                    audio.addEventListener("seeked", resolve, { once: true });
+                });
+                restorePosition = false;
+            } catch (error) {
+                // If seeking is unavailable, keep the player usable.
+            }
+        }
+        if (shouldContinue) {
+            audio.play().then(() => setPlaying(true)).catch(() => {
+                shouldContinue = false;
+                setPlaying(false, "Press Play music to continue listening.");
+            });
+        }
+    };
+
+    audio.addEventListener("loadedmetadata", restorePlayback, { once: true });
+
+    const savePlaybackPosition = () => {
+        try {
+            if (Number.isFinite(audio.currentTime)) {
+                sessionStorage.setItem(timeKey, String(audio.currentTime));
+            }
+        } catch (error) {
+            // Playback still works if browser storage is unavailable.
+        }
+    };
+    // Keep a recent position in case navigation happens between timeupdate events.
+    audio.addEventListener("timeupdate", savePlaybackPosition);
+
+    toggle.addEventListener("click", async () => {
+        if (!audio.paused) {
+            audio.pause();
+            setPlaying(false);
+            return;
+        }
+        try {
+            await audio.play();
+            setPlaying(true);
+        } catch (error) {
+            setPlaying(false, "The music could not start. Please try again.");
+        }
+    });
+
+    audio.addEventListener("error", () => {
+        shouldContinue = false;
+        setPlaying(false, "The music file could not load. Please try again later.");
+    });
+
+    window.addEventListener("pagehide", () => {
+        try {
+            savePlaybackPosition();
+            sessionStorage.setItem(playingKey, audio.paused ? "off" : "on");
+        } catch (error) {
+            // Cross-page continuity is optional if session storage is unavailable.
+        }
+    });
+
+    if (shouldContinue) {
+        audio.load();
+    }
+})();
