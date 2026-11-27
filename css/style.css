@@ -773,6 +773,7 @@ margin: 0 0 35px;
     margin: auto;
 }
 
+.thank-you h1,
 .thank-you h2 {
     margin-bottom: 20px;
     font-size: 3rem;
@@ -1067,6 +1068,7 @@ margin: 0 0 35px;
 
     /* Thank You */
 
+    .thank-you h1,
     .thank-you h2 {
         font-size: 2.25rem;
     }
@@ -1127,7 +1129,8 @@ a {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
+textarea:focus-visible,
+[role="button"]:focus-visible {
     outline: 3px solid #d5c2ff;
     outline-offset: 4px;
 }
@@ -1276,8 +1279,10 @@ section {
 #featured-work h2,
 .projects-hero h2,
 .about-hero h2,
+.about-hero h1,
 #resume-hero h2,
-.contact-hero h2 {
+.contact-hero h2,
+.contact-hero h1 {
     letter-spacing: -0.04em;
     font-size: clamp(2.2rem, 5vw, 3.5rem);
 }
@@ -1440,6 +1445,10 @@ footer {
     display: none;
 }
 
+.lightbox:not([hidden]) {
+    display: flex;
+}
+
 .lightbox img {
     object-fit: contain;
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
@@ -1565,11 +1574,20 @@ footer {
     letter-spacing: 0.01em;
 }
 
+.hero-statuses {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.6rem;
+    margin: 0 0 1.7rem;
+}
+
 .hero-status {
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
-    margin: 0 0 1.7rem;
+    margin: 0;
     padding: 0.42rem 0.85rem;
     color: #e6d9ff;
     background: rgba(54, 38, 75, 0.62);
@@ -2283,9 +2301,12 @@ footer {
 }
 
 .about-hero h2,
+.about-hero h1,
 #resume-hero h2,
 .contact-hero h2,
-.thank-you h2 {
+.contact-hero h1,
+.thank-you h2,
+.thank-you h1 {
     position: relative;
     z-index: 1;
     color: var(--text);
@@ -2853,3 +2874,125 @@ body.site-motion-active .site-sky-shooting-two {
 
 /* Motion starts automatically unless reduced motion is requested.
    The always-visible navigation control can pause it at any time. */
+
+/* Site-wide music controls: sound is opt-in and volume starts at 45 percent. */
+.site-music-player {
+    position: fixed;
+    z-index: 900;
+    right: clamp(0.75rem, 2.5vw, 2rem);
+    bottom: clamp(0.75rem, 2.5vw, 2rem);
+    display: grid;
+    grid-template-columns: auto minmax(130px, 190px);
+    align-items: center;
+    gap: 0.5rem 0.85rem;
+    width: min(390px, calc(100vw - 1.5rem));
+    padding: 0.8rem 0.95rem;
+    color: #f2eafa;
+    background: rgba(22, 17, 30, 0.96);
+    border: 1px solid rgba(202, 177, 255, 0.34);
+    border-radius: 18px;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.34);
+}
+
+.site-music-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.48rem;
+    min-height: 44px;
+    padding: 0.55rem 0.9rem;
+    color: #1b1325;
+    background: #c6a9ff;
+    border: 1px solid #c6a9ff;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 750;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.site-music-toggle:hover {
+    color: #1b1325;
+    background: #dac8ff;
+}
+
+.site-music-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.site-music-volume {
+    display: grid;
+    grid-template-columns: auto minmax(54px, 1fr) 2.6rem;
+    align-items: center;
+    gap: 0.5rem;
+    color: #e2d8ef;
+    font-size: 0.73rem;
+}
+
+.site-music-volume-input {
+    width: 100%;
+    min-height: 28px;
+    margin: 0;
+    accent-color: #c6a9ff;
+    cursor: pointer;
+}
+
+.site-music-volume-value {
+    color: #d4c0f2;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+
+.site-music-credit {
+    grid-column: 1 / -1;
+    color: #c9bfd5;
+    font-size: 0.67rem;
+    line-height: 1.35;
+    text-decoration: underline;
+    text-decoration-color: rgba(198, 169, 255, 0.5);
+    text-underline-offset: 0.22em;
+}
+
+.site-music-credit:hover {
+    color: #eadfff;
+}
+
+.site-music-player :focus-visible {
+    outline: 3px solid #e0ccff;
+    outline-offset: 3px;
+}
+
+.skip-link {
+    position: absolute;
+    z-index: 10001;
+    top: -4rem;
+    left: 1rem;
+    padding: 0.7rem 1rem;
+    color: #170f20;
+    background: #e6d9ff;
+    border-radius: 0 0 0.65rem 0.65rem;
+    font-weight: 700;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+@media (max-width: 520px) {
+    .site-music-player {
+        right: 0.65rem;
+        bottom: 0.65rem;
+        grid-template-columns: auto minmax(118px, 1fr);
+        gap: 0.45rem 0.6rem;
+        width: min(350px, calc(100vw - 1.3rem));
+        padding: 0.65rem 0.75rem;
+        border-radius: 15px;
+    }
+
+    .site-music-toggle {
+        padding-inline: 0.72rem;
+        font-size: 0.76rem;
+    }
+}
