@@ -3,150 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hope Scott | Front-End Developer | Graphic Designer</title>
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="images/hope-scott-favicon.png">
+    <title>Hope Scott | Front-End Developer & Graphic Designer</title>
+    <meta name="description" content="Front-end development and graphic design by Hope Scott. Explore responsive websites, branding, and visual design projects.">
+    <meta name="theme-color" content="#17121d">
+    <link rel="canonical" href="https://hopescottcreative.is-not-a.dev/">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="/images/hope-scott-star.svg?v=20261126" sizes="any">
 </head>
-<body>
-
+<body class="home-page">
+<div class="site-sky" aria-hidden="true">
+    <span class="site-sky-stars"></span>
+    <span class="site-sky-moon">☾</span>
+    <span class="site-sky-light"></span>
+    <span class="site-sky-shooting site-sky-shooting-one"></span>
+    <span class="site-sky-shooting site-sky-shooting-two"></span>
+</div>
 <header>
     <nav>
-      <a href="index.html" class="site-logo">
-
-    <img src="images/hslogo02.png" alt="Hope Scott logo" style="width: 150px !important; height: auto !important;">
-
-</a>
-
-        <button class="menu-toggle" aria-label="Open Navigation Menu">
-            ☰
-        </button>
-
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="resume.html">Resume</a></li>
-            <li><a href="contact.html">Contact</a></li>
+        <a href="/" class="site-logo" aria-label="Hope Scott home">
+            <img src="https://hopescottcreative.is-not-a.dev/images/hslogo02.png" alt="Hope Scott logo">
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+        <ul class="nav-links" id="primary-navigation">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/projects/">Projects</a></li>
+            <li><a href="/resume/">Resume</a></li>
+            <li><a href="/contact/">Contact</a></li>
         </ul>
+        <button class="sky-motion-toggle" id="sky-motion-toggle" type="button" aria-pressed="false" aria-describedby="sky-motion-status" disabled><span aria-hidden="true">✦</span> <span class="sky-toggle-label">Play sky</span></button>
+        <span id="sky-motion-status" class="visually-hidden" role="status" aria-live="polite">Animation is paused.</span>
     </nav>
 </header>
 
-<section id="hero">
-
-    <div class="hero-content">
-
-        <p class="intro">Hello, I'm</p>
-
-        <h1>Hope Scott</h1>
-
-        <h2>Front-End Developer & Graphic Designer</h2>
-
-        <p class="hero-text">
-            I create websites, branding, and digital experiences that blend creativity with functionality. My passion for web development began at Full Sail University and continues to grow through every project I build.
-        </p>
-
-        <div class="hero-buttons">
-            <a href="projects.html" class="primary-btn">View My Work</a>
-            <a href="contact.html" class="secondary-btn">Contact Me</a>
-        </div>
-
-    </div>
-
-</section>
-
-<section id="home-intro">
-
-    <div class="home-intro-container">
-
-        <div class="home-photo">
-            <img src="images/hope.jpg" alt="Professional portrait of Hope Scott">
-        </div>
-
-        <div class="home-intro-text">
-            <h2>Welcome</h2>
-
-            <p>
-                I'm a Graphic Design alumni at Full Sail University with a passion for front-end development. What started as learning HTML and CSS quickly became a love for building websites that are visually engaging, responsive, and user-friendly.
-            </p>
-
-            <p>
-                Through academic projects and personal work, I've developed experience in web design, branding, advertising, and digital storytelling. I enjoy transforming ideas into meaningful experiences through both design and code.
-            </p>
-
-            <div class="home-intro-button">
-                <a href="about.html" class="primary-btn">Learn More About Me</a>
+<main id="main-content">
+    <section id="hero" class="signature-hero">
+        <span class="hero-moon" aria-hidden="true">☾</span>
+        <span class="cursor-moonlight" aria-hidden="true"></span>
+        <span class="shooting-star shooting-star-one" aria-hidden="true"></span>
+        <span class="shooting-star shooting-star-two" aria-hidden="true"></span>
+        <span class="hero-star hero-star-one" aria-hidden="true">✦</span>
+        <span class="hero-star hero-star-two" aria-hidden="true">✧</span>
+        <div class="hero-content">
+            <p class="hero-status"><span aria-hidden="true">✦</span> Open to opportunities</p>
+            <p class="intro">Hope Scott <span aria-hidden="true">·</span> Creative portfolio</p>
+            <h1>Thoughtful design.<br>Digital work with character.</h1>
+            <h2>Front-End Developer &amp; Graphic Designer</h2>
+            <p class="hero-text">I bring ideas to life through responsive websites, visual identities, and digital design—with a little starlight in the details.</p>
+            <div class="hero-buttons">
+                <a href="/projects/" class="primary-btn">Explore my work <span aria-hidden="true">↗</span></a>
+                <a href="/contact/" class="secondary-btn">Let's connect</a>
             </div>
-
         </div>
+        
+        <p class="hero-note"><span aria-hidden="true">✧</span> Web · Brand · Visual design</p>
+    </section>
 
-    </div>
-
-</section>
-
-<section id="skills-overview">
-
-    <h2>What I Do</h2>
-
-    <div class="skills-grid">
-
-        <div class="skill-card">
-            <h3>Front-End Development</h3>
-            <p>HTML • CSS • Responsive Design • GitHub</p>
+    <section id="featured-work" class="home-selected-work">
+        <div class="section-heading">
+            <p class="section-label">A few things I’ve made <span aria-hidden="true">✦</span></p>
+            <h2>Selected work</h2>
+            <p>Web experiences and visual worlds shaped with care, curiosity, and a point of view.</p>
         </div>
-
-        <div class="skill-card">
-            <h3>Graphic Design</h3>
-            <p>Branding • Advertising • Visual Identity • Typography</p>
+        <div class="editorial-work-grid">
+            <article class="editorial-project editorial-project-wide">
+                <a class="editorial-image" href="/projects/" aria-label="Explore Samhain Night Market in the projects gallery">
+                    <img src="https://hopescottcreative.is-not-a.dev/images/samhain-night-market/samhainnightmarket.png" alt="Samhain Night Market event website">
+                    <span class="image-star" aria-hidden="true">✦</span>
+                </a>
+                <div class="editorial-project-copy">
+                    <p class="project-overline">Digital experience <span>01</span></p>
+                    <h3>Samhain Night Market</h3>
+                    <p>An event website with seasonal visual branding, event details, and responsive layouts.</p>
+                    <a class="text-link" href="/projects/">Explore the project gallery <span aria-hidden="true">↗</span></a>
+                </div>
+            </article>
+            <article class="editorial-project">
+                <a class="editorial-image" href="/projects/" aria-label="Explore Nightshade in the projects gallery">
+                    <img src="https://hopescottcreative.is-not-a.dev/images/nightshade/nightshadehome.png" alt="Nightshade gaming community website">
+                    <span class="image-star" aria-hidden="true">✧</span>
+                </a>
+                <div class="editorial-project-copy">
+                    <p class="project-overline">Web design <span>02</span></p>
+                    <h3>Nightshade</h3>
+                    <p>A themed digital home for a gaming community, with event and shop experiences.</p>
+                    <a class="text-link" href="/projects/">Explore the project gallery <span aria-hidden="true">↗</span></a>
+                </div>
+            </article>
+            <article class="editorial-project">
+                <a class="editorial-image" href="/projects/" aria-label="Explore visual design work in the projects gallery">
+                    <img src="https://hopescottcreative.is-not-a.dev/images/additional-artwork/visiaversecolortag.png" alt="VisiaVerse visual identity color tag design">
+                    <span class="image-star" aria-hidden="true">✦</span>
+                </a>
+                <div class="editorial-project-copy">
+                    <p class="project-overline">Brand &amp; visual design <span>03</span></p>
+                    <h3>VisiaVerse</h3>
+                    <p>A colorful identity explored through graphic design and a dedicated case study.</p>
+                    <a class="text-link" href="/projects/">See more visual work <span aria-hidden="true">↗</span></a>
+                </div>
+            </article>
         </div>
-
-        <div class="skill-card">
-            <h3>Creative Tools</h3>
-            <p>Adobe Creative Suite • Figma • Canva</p>
+        <div class="featured-work-button">
+            <a href="/projects/" class="secondary-btn">View all projects <span aria-hidden="true">↗</span></a>
         </div>
+    </section>
 
-    </div>
-
-</section>
-
-<section id="featured-work">
-
-    <h2>Featured Work</h2>
-
-    <div class="projects-grid">
-
-        <div class="project-card">
-            <img src="images/samhain-night-market/samhainnightmarket.png" alt="Samhain Night Market">
-            <h3>Samhain Night Market</h3>
-            <p>Event website featuring custom branding, responsive layouts, and immersive seasonal design.</p>
+    <section id="home-intro" class="home-about">
+        <div class="home-intro-container">
+            <div class="home-photo">
+                <img src="https://hopescottcreative.is-not-a.dev/images/hope.jpg" alt="Portrait of Hope Scott" loading="lazy">
+            </div>
+            <div class="home-intro-text">
+                <p class="section-label">A little about me <span aria-hidden="true">☾</span></p>
+                <h2>Design-minded. Detail-loving. Always curious.</h2>
+                <p>I’m a front-end developer and Full Sail University graphic design graduate. I enjoy bringing visual design and thoughtful code together to make digital experiences that are clear, expressive, and easy to use.</p>
+                <p>From responsive websites to brand identities, I love work that gives an idea its own look and makes it feel welcoming to the people it’s for.</p>
+                <div class="home-intro-button">
+                    <a href="/about/" class="text-link">More about Hope <span aria-hidden="true">↗</span></a>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="project-card">
-            <img src="images/nightshade/nightshadehome.png" alt="Nightshade Website">
-            <h3>Nightshade Gaming Community</h3>
-            <p>Responsive gaming community website designed to engage users and showcase events.</p>
+    <section id="skills-overview" class="home-capabilities">
+        <div class="section-heading">
+            <p class="section-label">What I bring <span aria-hidden="true">✦</span></p>
+            <h2>Creative thinking, thoughtful execution</h2>
         </div>
+        <div class="skills-grid">
+            <article class="skill-card">
+                <span class="capability-icon" aria-hidden="true">✧</span>
+                <h3>Front-End Development</h3>
+                <p>HTML, CSS, responsive layouts, and accessible interactions.</p>
+            </article>
+            <article class="skill-card">
+                <span class="capability-icon" aria-hidden="true">☾</span>
+                <h3>Graphic Design</h3>
+                <p>Branding, advertising, visual identity, and typography.</p>
+            </article>
+            <article class="skill-card">
+                <span class="capability-icon" aria-hidden="true">✦</span>
+                <h3>Creative Tools</h3>
+                <p>Adobe Creative Suite, Figma, and Canva.</p>
+            </article>
+        </div>
+    </section>
 
-    </div>
+    <section id="call-to-action" class="celestial-cta">
+        <span class="cta-orbit" aria-hidden="true">☾</span>
+        <p class="section-label">Have a project in mind? <span aria-hidden="true">✦</span></p>
+        <h2>Let’s make something meaningful.</h2>
+        <p>I’m exploring front-end development and graphic design opportunities. I’d love to hear what you’re working on.</p>
+        <a href="/contact/" class="primary-btn">Get in touch <span aria-hidden="true">↗</span></a>
+    </section>
+</main>
 
-    <div class="featured-work-button">
-        <a href="projects.html" class="primary-btn">View All Projects</a>
-    </div>
-
-</section>
-
-<section id="call-to-action">
-
-    <h2>Let's Create Something Amazing Together</h2>
-
-    <p>
-        Whether you're looking for a website, branding work, or a creative collaborator, I'd love to connect.
-    </p>
-
-    <a href="contact.html" class="primary-btn">Get In Touch</a>
-
-</section>
-<footer><p>&copy; 2026 Hope Scott. All rights reserved.</p></footer>
-<script src="js/script.js"></script>
+<footer><p><span aria-hidden="true">✦</span> &copy; 2026 Hope Scott · Made with care <span aria-hidden="true">✦</span></p></footer>
+<script src="/js/script.js"></script>
 </body>
 </html>
